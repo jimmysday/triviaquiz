@@ -25,18 +25,18 @@ $(document).ready(function(){
 function mainScreen(){
 
     if(init==false){
-        if(!confirm("Do you want to quit current game?"))
-         return;
+  //      if(!confirm("Do you want to quit current game?"))
+ //        return;
     }
 
     $('.buttonArea').html('');
 
     $('.questionbody').html('Test your computer knowledge!');
     $('.mainArea').html( 
-        `<p class='main-button-container'><a class='btn btn-info btn-lg btn-block w-75 start-button' href='#' role='button'>Start Quiz</a></p>
-        <p class='main-button-container'><a class='btn btn-info btn-lg btn-block w-75 level-button' href='#' role='button'>Level</a></p>
-        <p class='main-button-container'><a class='btn btn-info btn-lg btn-block w-75 rank-button' href='#' role='button'>Rank</a></p>
-        <p class='main-button-container'><a class='btn btn-info btn-lg btn-block w-75 about-button' href='#' role='button'>About</a></p>`
+        `<div class='main-button-container bg-info w-75 h-50'><a class='btn btn-lg btn-block bg-primary w-100 h-75 start-button text-center' href='#' role='button'>Start Quiz</a></div>
+        <div class='main-button-container'><a class='btn btn-info btn-lg btn-block w-75 level-button' href='#' role='button'>Level</a></div>
+        <div class='main-button-container'><a class='btn btn-info btn-lg btn-block w-75 rank-button' href='#' role='button'>Rank</a></div>
+        <div class='main-button-container'><a class='btn btn-info btn-lg btn-block w-75 about-button' href='#' role='button'>About</a></div>`
     );
     $('#questionNumber').html(`${questionCounter}/${questionCount}`);
     questionCounter=0;
@@ -77,8 +77,8 @@ async function answerQuiz(){
     await getQuizGroup();
     timerInterval = setInterval(updateTimer, 1000);
     $('#timeRemain').text(minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
-    $('.buttonArea').html(`<a class='btn btn-primary btn-lg btn-block w-25 next-button' href='#' role='button'>Next</a>`);
-    document.querySelector(".next-button").addEventListener('click',nextQuestion);  
+    //$('.buttonArea').html(`<a class='btn btn-primary btn-lg btn-block w-25 next-button' href='#' role='button'>Next</a>`);
+    //document.querySelector(".next-button").addEventListener('click',nextQuestion);  
     getQuestion(questionCounter);
    
 }
@@ -119,27 +119,23 @@ function getQuestion(){
     let q = questions[questionCounter][1];
 
     let answers=questions[questionCounter].slice(3);
+    let correctNumber = 0;
     
  
     console.log(answers);
     mainArea.innerHTML="";
     $('.questionbody').html(`${questionCounter+1}. ${questions[questionCounter][1]}`);
     if(questions[questionCounter][0] == "multiple"){
-        const correctNumber = Math.floor(Math.random() * 4);
+        correctNumber = Math.floor(Math.random() * 4);
         moveItem(answers,0,correctNumber);
         console.log(correctNumber);
         console.log(answers);
         for(let i=0;i<=3;i++){
             mainArea.innerHTML += ` <label><input type="radio" name="answer1" value="${i}">  ${i+1}. ${answers[i]}</label><br>`;
         }
-  /*      mainArea.innerHTML = `
-  //          <label><input type="radio" name="answer1" value="false">  a. ${questions[questionCounter][3]}</label><br>
-  //          <label><input type="radio" name="answer1" value="false">  b. ${questions[questionCounter][4]}</label><br>
-  //          <label><input type="radio" name="answer1" value="true">  c. ${questions[questionCounter][5]}</label><br>
-  //          <label><input type="radio" name="answer1" value="false">  d. ${questions[questionCounter][6]}</label><br>`;
-  */          
+      
     }else{
-        const correctNumber = Math.floor(Math.random() * 2);
+        correctNumber = Math.floor(Math.random() * 2);
 
         for(let i=0;i<=1;i++){
             let question="";
@@ -150,25 +146,39 @@ function getQuestion(){
             }
             mainArea.innerHTML += ` <label><input type="radio" name="answer1" value="${i}">  ${i+1}. ${question}</label><br>`;
         }
-/*
-        mainArea.innerHTML = `
-            <label><input type="radio" name="answer1" value="false">a. True</label><br>
-            <label><input type="radio" name="answer1" value="true"> b. False</label><br>`;
-*/
+
     }
 
     $('#questionNumber').html(`${questionCounter+1}/${questionCount}`);
 
+    mainArea.innerHTML +=`<a id='getValue' class='btn btn-primary btn-lg btn-block w-25 next-button mt-5' href='#' role='button'>Next</a>`
+    //<button type="button" id="getValue">Get Checked Value</button>`;
+
+    $('#getValue').on('click',function(){
+        let checkedValue = $(`input[name="answer1"]:checked`).val();
+        console.log("correctNumber:"+correctNumber);
+        if(checkedValue == correctNumber){
+            correctCount++;
+        }
+        nextQuestion();    
+    });
+
+     
+
     if(init != true){
-        console.log($(`input[name='answer1']:checked`).length);
+
         if($(`input[name='answer']:checked`).length === 0){
-   //         alert("At least one option.");
+   
   //          return;
         }
 
+
+
         questionCounter++;
         if(questionCounter==questionCount){
-            $('.next-button').text('Submit');
+            //$('.next-button').text('Submit');
+            $('#getValue').text('Submit');
+
         }
         console.log(questionCounter);
     }
@@ -202,10 +212,11 @@ gameOver =()=>{
 }
 
 completeQuestion = () => {
+    correctCount
     mainArea.innerHTML='';
     $('.questionbody').html('Game Completed');
-    $('.mainArea').html(`Congratulations,you completed the game<br>
-                        Your got score: <br>
+    $('.mainArea').html(`Congratulations, you completed the game<br>
+                        Your got score: ${correctCount*oneScore}(${correctCount}/${questionCount})<br>
                         Your level now is: <br>
                         Your rank on the world is:`);
     init==true
