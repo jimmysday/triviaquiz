@@ -1,7 +1,19 @@
 body {
-  background-color: antiquewhite;
+  height: 100vh;
 }
 .test {
   background-color: azure;
   height: 80vh;
+}
+
+.background-image-container {
+  background-image: url('../images/pexels-pixabay-278918.jpg');
+  background-size: cover;  /* Cover the entire container */
+ /* background-position: center;  Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  height: 100vh; /* Adjust height as needed */
+  color: white; /* Optional: adjust text color for contrast */
+  /*display: flex;
+  align-items: center;  Center content vertically */
+  /*justify-content: center;  Center content horizontally */
 }

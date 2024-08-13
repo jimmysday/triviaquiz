@@ -2,11 +2,13 @@ let typeSelectId = document.getElementById("mainArea");
 let mainArea = document.querySelector(".mainArea");
 let questions = [];
 let questionCount=10;
-let catagory=18;
+let category={"value":18,"text":"Computer"};
+let level="easy";
 let correctCount=0;
 let questionCounter = 0;
 let totalScore=0;
 let oneScore=5;
+let musicFlag=false;
 let init=true;
 
 // Initialize the timer values
@@ -14,11 +16,21 @@ let minutes = questionCount; // set your initial minute value here,one minute pe
 let seconds = 0;
 let timerInterval;
 
-$(document).ready(function(){
+const jsonDataCategory = [
+    { "value": "18", "text": "Computer" },
+    { "value": "19", "text": "Mathematics" },
+    { "value": "21", "text": "Music" },
+    { "value": "15", "text": "Video Game" },
+    { "value": "11", "text": "Film" },
+    { "value": "10", "text": "Sports" },
+    { "value": "23", "text": "History" }
+];
 
+$(document).ready(function(){
 
     mainScreen();
     $('#logo').on('click',mainScreen);
+    $('#musicSetting').on('click',musicSetting);
 
 })
 
@@ -29,16 +41,20 @@ function mainScreen(){
  //        return;
     }
 
+    let musiccolor = musicFlag ? "white" : "gray";
+    $('#backmusic').css('color',musiccolor);
+
     $('.buttonArea').html('');
 
-    $('.questionbody').html('Test your computer knowledge!');
+    $('.questionbody').html(`Test your ${category.text} knowledge!`);
     $('.mainArea').html( 
-        `<div class='main-button-container bg-info w-75 h-50'><a class='btn btn-lg btn-block bg-primary w-100 h-75 start-button text-center' href='#' role='button'>Start Quiz</a></div>
-        <div class='main-button-container'><a class='btn btn-info btn-lg btn-block w-75 level-button' href='#' role='button'>Level</a></div>
-        <div class='main-button-container'><a class='btn btn-info btn-lg btn-block w-75 rank-button' href='#' role='button'>Rank</a></div>
-        <div class='main-button-container'><a class='btn btn-info btn-lg btn-block w-75 about-button' href='#' role='button'>About</a></div>`
+        `<div class='main-button-container'><a class='btn btn-primary btn-lg btn-block w-75 start-button mb-3' href='#' role='button'>Start Quiz</a></div>
+        <div class='main-button-container'><a class='btn btn-primary btn-lg btn-block w-75 level-button my-3' href='#' role='button'>Level&category</a></div>
+        <div class='main-button-container'><a class='btn btn-primary btn-lg btn-block w-75 rank-button my-3' href='#' role='button'>Rank</a></div>
+        <div class='main-button-container'><a class='btn btn-primary btn-lg btn-block w-75 about-button my-3' href='#' role='button'>About</a></div>`
     );
     $('#questionNumber').html(`${questionCounter}/${questionCount}`);
+    $('#level').html(`Level: ${level}`);
     questionCounter=0;
     amountScore=0;
     correctCount=0;
@@ -77,6 +93,10 @@ async function answerQuiz(){
     await getQuizGroup();
     timerInterval = setInterval(updateTimer, 1000);
     $('#timeRemain').text(minutes + ':' + (seconds < 10 ? '0' : '') + seconds);
+    if(musicFlag){
+        $('#background-music')[0].play();
+    }   
+
     //$('.buttonArea').html(`<a class='btn btn-primary btn-lg btn-block w-25 next-button' href='#' role='button'>Next</a>`);
     //document.querySelector(".next-button").addEventListener('click',nextQuestion);  
     getQuestion(questionCounter);
@@ -84,7 +104,7 @@ async function answerQuiz(){
 }
 
 async function getQuizGroup(){
-    const response = await fetch(`https://opentdb.com/api.php?amount=${questionCount}&category=${catagory}`);
+    const response = await fetch(`https://opentdb.com/api.php?amount=${questionCount}&category=${category.value}&difficulty=${level}`);
     const jsondataGroup = await response.json();
     for(i=0;i<questionCount;i++){
         questions.push([
@@ -94,7 +114,10 @@ async function getQuizGroup(){
             jsondataGroup.results[i].correct_answer,
             jsondataGroup.results[i].incorrect_answers[0],
             jsondataGroup.results[i].incorrect_answers[1],
-            jsondataGroup.results[i].incorrect_answers[2]]);
+            jsondataGroup.results[i].incorrect_answers[2],
+            jsondataGroup.results[i].difficulty,
+            jsondataGroup.results[i].category
+        ]);
     }
     console.log(questions);
 }
@@ -200,7 +223,7 @@ function moveItem(array, fromIndex, toIndex) {
 }
 
 ResumeMain = ()=>{
-    $('.buttonArea').html(`<a class='btn btn-primary btn-lg btn-block w-75 resume-button' href='#' role='button'>resume</a>`);
+    $('.buttonArea').html(`<a class='btn btn-primary btn-lg btn-block w-25 resume-button' href='#' role='button'>resume</a>`);
     $('.resume-button').on('click',mainScreen);  
 }
 
@@ -217,31 +240,109 @@ completeQuestion = () => {
     $('.questionbody').html('Game Completed');
     $('.mainArea').html(`Congratulations, you completed the game<br>
                         Your got score: ${correctCount*oneScore}(${correctCount}/${questionCount})<br>
-                        Your level now is: <br>
-                        Your rank on the world is:`);
+                    `);
     init==true
     ResumeMain(); 
 }
 
 showlevel = () => {
-    $('.questionbody').html('Your Level');
-    $('.mainArea').html(`Your level is: <br>
-                        you score is:<br> 
-                        your need more 100 to get next level<br>
-                        Go<br>
-                        
-                        score/Level rules:`);
+    $('.questionbody').html('Question Level&category');
+    $('.mainArea').html(`
+        <div class='input-group mb-3'>
+            <label for="category">Select question category:---</label>
+            <select id="category" class="form-select form-select-sm" aria-label="">
+                <option selected>${category.text}</option>
+                <option value="18">Computer</option>
+                <option value="19">Mathematics</option>
+                <option value="21">Music</option>
+                <option value="15">Video Game</option>
+                <option value="11">Film</option>
+                <option value="10">Sports</option>
+                <option value="23">History</option>
+            </select>
+        </div>
+        <div class='input-group mb-3'>
+            <label for="levels">Select question Level:-------</label>
+            <select id="levels" class="form-select form-select-sm" aria-label="">
+                <option selected>${level}</option>
+                <option value="easy">easy</option>
+                <option value="medium">medium</option>
+                <option value="hard">hard</option>
+            </select>
+        </div>
+    `);
+
+    $('#levels').on('change',function(){        
+        level = $('#levels').val();    
+        console.log("Levels:"+level);
+    });
+    $('#category').on('change',function(){
+        category.value = $('#category').val();
+        category.text = $('#category option:selected').text();
+        console.log("category:"+category.text+" value:"+category.value);
+      });
+
     ResumeMain(); 
 }
 
 showrank = () => {
-    $('.questionbody').html('Your Rank');
+/*    $('.questionbody').html('Your Rank');
     $('.mainArea').html(`Your rank is: 20/12329 <br>
                         top 100:<br>
                         ------<br>
                         ------`);
+                        */
+    $('.questionbody').html('Your Rank');
+    $('.mainArea').html(`Your rank is: 20/12329 <br>
+                        top 100:<br>
+                        ------<br>
+                        ------`);                   
     ResumeMain(); 
 }  
+
+systemSetting = () => {
+
+    let checkstatus = musicFlag ? "checked" : "";
+
+    $('.questionbody').html('System Setting');
+    $('.mainArea').html(`
+        <div class="input-group"> 
+            <label class="form-check-label" for="musicCheck">
+                Background Music:-----
+            </label>
+            <input class="form-check-input" type="checkbox" value="" id="musicCheck" ${checkstatus}>
+        </div>
+        <div class="input-group">
+            <label class="form-check-label" for="questionsperround">
+                questions per round:---
+            </label>
+            <input class="form-control" type="text" value=${questionCount} id="questionsperround">
+        </div>`);  
+    $('#musicCheck').on('change',function(){
+        musicFlag = $('#musicCheck').prop('checked');
+        console.log("musicFlag:"+musicFlag);
+    });
+
+    $('#questionsperround').on('change',function(){
+        questionCount = $('#questionsperround').val();
+        console.log("questionCount:"+questionCount);
+    });
+
+    ResumeMain(); 
+}  
+
+musicSetting = () => {
+
+    if(musicFlag){
+        $('#background-music')[0].pause();
+        $('#backmusic').css('color','gray');
+        musicFlag = false;
+    }else{
+        $('#background-music')[0].play();
+        $('#backmusic').css('color','white');
+        musicFlag = true;
+    }
+}
 
 showabout = () => {
     mainArea.innerHTML='';

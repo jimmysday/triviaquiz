@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="includes/styles.css">
 </head>
   <body>
-    <div class="container bg-secondary" style="min-height: 90vh;">
+    <div class="container h-100 background-image-container">
 
       <nav class="navbar navbar-expand-lg bg-black">
 
@@ -23,7 +23,7 @@
           <div class="collapse navbar-collapse text-light" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item mx-3">
-                <p id="bookmark">Bookmark:</p>
+                <p id="level">Level: Easy</p>
               </li>
               <li class="nav-item mx-3">
                 <p id="questionNumber">0/20</p>
@@ -35,41 +35,38 @@
               <li class="nav-item mx-3">
                 <p id="Hint"></p>
               </li>              
-              <li class="nav-item mx-3">
-                <i class="bi bi-gear mx-2" style="font-size: 1.5rem; color: white;"></i>
+              <li id="musicSetting" class="nav-item mx-3">
+                <i id="backmusic" class="bi bi-music-note-beamed mx-2" style="font-size: 1.5rem; color: white;"></i>
               </li>              
 
             </ul>
           </div>
         </div>
-      
       </nav>
 
-      <div class="container-fluid bg-danger" style="min-height: 85vh;">
+      <div class="container" style="min-height: 90%">
 
-          <div class="row h-100 bg-black">
-            <div class="col-sm-1 col-md-2 col-md-offset-4 m-3"></div>
-            <div class="questionbody col-xs-12 col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-4 m-6 text-center text-light fs-2 "></div>
+          <div class="row" style="height: 25vh;">
+            <div class="col-sm-1 col-md-2 col-md-offset-4 mt-5"></div>
+            <div class="questionbody col-xs-12 col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-4 m-6 text-light fs-2 d-flex align-items-end justify-content-center"></div>
             <div class="col-sm-1 col-md-2 col-md-offset-4 m-3"></div>
           </div> 
 
-          <div class="row  h-60 bg-primary-subtle">
+          <div class="row" style="min-height: 40vh;">
             <div class="col-sm-1 col-md-2 col-md-offset-4 m-3"></div>
-            <div class="mainArea col-xs-12 col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-4 m-6 text-light fs-5 ms-5"></div>
+            <div class="mainArea col-xs-12 col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-4 m-6 text-center text-light fs-5"></div>
             <div class="col-sm-1 col-md-2 col-md-offset-4 m-3"></div>
           </div> 
 
-          <div class="row h-20 bg-black">
+          <div class="row h-25">
             <div class="col-sm-1 col-md-2 col-md-offset-4 m-3"></div>
-            <div class="buttonArea col-xs-12 col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-4 m-6 text-end"></div>
+            <div class="buttonArea col-xs-12 col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-4 m-6 text-center"></div>
             <div class="col-sm-1 col-md-2 col-md-offset-4 m-3"></div>
           </div> 
       </div>
+      <audio id="background-music" src="images/ForestWalk.mp3" autoplay loop></audio>
 
-
-      <div class="container-fluid bg-primary">
-        CopyRight: 2024 jimmy
-      </div>
+      <div class="container-fluid bg-primary">CopyRight: 2024 jimmy</div>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
