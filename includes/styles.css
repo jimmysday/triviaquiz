@@ -7,7 +7,7 @@ body {
 }
 
 .background-image-container {
-  background-image: url('../images/pexels-pixabay-278918.jpg');
+  background-image: url('../images/puzzle-3223941_1280.jpg');
   background-size: cover;  /* Cover the entire container */
  /* background-position: center;  Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
@@ -16,4 +16,18 @@ body {
   /*display: flex;
   align-items: center;  Center content vertically */
   /*justify-content: center;  Center content horizontally */
+}
+
+.mainArea {
+  /*
+  background-image: url('../images/king-1846807_11280.jpg');
+  background-size: cover;
+  */
+}
+
+.questionbody {
+  /*
+  background-image: url('../images/king-1846807_12d80.jpg');
+  background-size: cover;
+  */
 }

@@ -10,18 +10,13 @@
 </head>
   <body>
     <div class="container h-100 background-image-container">
-
       <nav class="navbar navbar-expand-lg bg-black">
-
         <div class="container-fluid text-light">
-          <div id="logo" class="d-flex flex-row">
+          <div id="logo">
             <i class="bi bi-motherboard-fill mx-2" style="font-size: 2rem; color: white;">Trivia Quiz</i>
           </div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse text-light" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto">
+          <div class="text-light" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto d-flex flex-row">
               <li class="nav-item mx-3">
                 <p id="level">Level: Easy</p>
               </li>
@@ -33,12 +28,11 @@
                 <p id="timeRemain"> 0:0</p>
               </li>              
               <li class="nav-item mx-3">
-                <p id="Hint"></p>
+                <p id="category"></p>
               </li>              
-              <li id="musicSetting" class="nav-item mx-3">
-                <i id="backmusic" class="bi bi-music-note-beamed mx-2" style="font-size: 1.5rem; color: white;"></i>
-              </li>              
-
+              <li id="musicSetting" class="nav-item">
+                <i id="backmusic" class="bi bi-music-note-beamed" style="font-size: 1.0rem; color: white;"></i>
+              </li>
             </ul>
           </div>
         </div>
@@ -46,15 +40,15 @@
 
       <div class="container" style="min-height: 90%">
 
-          <div class="row" style="height: 25vh;">
+          <div class="row" style="height: 20vh;">
             <div class="col-sm-1 col-md-2 col-md-offset-4 mt-5"></div>
-            <div class="questionbody col-xs-12 col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-4 m-6 text-light fs-2 d-flex align-items-end justify-content-center"></div>
+            <div class="questionbody col-xs-12 col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-4 mt-5 text-black fs-1 d-flex align-items-center justify-content-center rounded-pill"></div>
             <div class="col-sm-1 col-md-2 col-md-offset-4 m-3"></div>
           </div> 
 
-          <div class="row" style="min-height: 40vh;">
+          <div class="row" style="min-height: 50vh;">
             <div class="col-sm-1 col-md-2 col-md-offset-4 m-3"></div>
-            <div class="mainArea col-xs-12 col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-4 m-6 text-center text-light fs-5"></div>
+            <div class="mainArea col-xs-12 col-sm-10 col-sm-offset-2 col-md-8 col-md-offset-4 m-6 pt-5 text-center text-black fs-4 rounded-pill"></div>
             <div class="col-sm-1 col-md-2 col-md-offset-4 m-3"></div>
           </div> 
 
