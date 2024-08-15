@@ -51,6 +51,8 @@ function mainScreen(){
     $('#backmusic').css('color',musiccolor);
 
     $('.buttonArea').html('');
+    $('.mainLeft').html('');
+    $('.mainright').html('');
 
     $('.questionbody').html(`Test your ${category.text} knowledge!`);
     $('.mainArea').html( 
@@ -58,7 +60,7 @@ function mainScreen(){
             <a class='btn btn-primary btn-lg btn-block w-75 start-button mb-3' href='#' role='button'>Start Quiz</a>
             <i class="bi bi-brilliance fs-2 startstar" style="color: blue;"></i></div>
         <div class='main-button-container'><i class="bi bi-brilliance fs-2 levelstar" style="color: blue;"></i>
-            <a class='btn btn-primary btn-lg btn-block w-75 level-button my-3' href='#' role='button'>Level & category</a>
+            <a class='btn btn-primary btn-lg btn-block w-75 level-button my-3' href='#' role='button'>Setting</a>
             <i class="bi bi-brilliance fs-2 levelstar" style="color: blue;"></i></div>
         <div class='main-button-container'><i class="bi bi-brilliance fs-2 rankstar" style="color: blue;"></i>
             <a class='btn btn-primary btn-lg btn-block w-75 rank-button my-3' href='#' role='button'>Rank</a>
@@ -307,7 +309,7 @@ ResumeMain = ()=>{
 gameOver =()=>{
     $('.questionbody').html('Time Out');
     $('.questionbody').css('color','red');  
-    $('.mainArea').html('Game Over');
+    $('.mainArea').html(`<img src="./images/wallpaper-1176309_1280.jpg" class="img-fluid" alt="Responsive image">`);
     ResumeMain(); 
 }
 
@@ -349,7 +351,7 @@ showlevel = () => {
         </div>
         <div class="input-group">
             <label class="form-check-label" for="questionsperround">
-                questions per round:---
+                questions per round:--------
             </label>
             <input class="form-control" type="text" value=${questionCount} id="questionsperround">
         </div>  
@@ -542,10 +544,12 @@ musicSetting = () => {
 showabout = () => {
     mainArea.innerHTML='';
     $('.questionbody').html('About Trivia Game');
+    $('.mainLeft').html(`<img src="./images/pexels-pixabay-278918.jpg" class="img-fluid" alt="Responsive image">`);
+
     $('.mainArea').html(`This is a simple trivia game to test your Knowledge about computer science<br>
         Answer 20 questions as quickly and as accurately as possible in each themed game<br>
         Your score and rank will be displayed on completion of the game<br>
         Questions are updated every time when you replay the game.`);
-    $('.mailArea').css('background-image','../images/king-1846807_1280.jpg');
+
     ResumeMain(); 
 }
