@@ -471,7 +471,7 @@ showrank = () => {
                                                 <span class="input-group-text fs-2 text-primary-emphasis" id="icon-lastname">
                                                     <i class="bi bi-person-fill"></i>
                                                 </span>
-                                                <input id = "input-password" type="text" class="form-control" placeholder="LastName" aria-label="Input group" aria-describedby="icon-lastname">
+                                                <input id = "input-password" type="password" class="form-control" placeholder="password" aria-label="Input group" aria-describedby="icon-lastname">
                                             </div>
                                             
                                             <!--if there are invalid input. will not users here.-->
